@@ -33,8 +33,8 @@ public class GameApiController {
 		return gameService.createGame();
 	}
 
-	@RequestMapping(value="/{id}/players", method=RequestMethod.POST)
-	public String joinGame(@PathVariable final int id, @Valid final Player player) {
+	@RequestMapping(value="/{gameId}/players", method=RequestMethod.POST)
+	public String joinGame(@PathVariable final int gameId, @Valid final String playerName) {
 
 		// TODO: put the player in the game
 		final String response = "success";
@@ -42,9 +42,9 @@ public class GameApiController {
 		return response;
 	}
 
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public Game getGame(@PathVariable final int id) {
-		return gameService.getGame(id);
+	@RequestMapping(value="/{gameId}", method=RequestMethod.GET)
+	public Game getGame(@PathVariable final int gameId) {
+		return gameService.getGame(gameId);
 	}
 
 }
