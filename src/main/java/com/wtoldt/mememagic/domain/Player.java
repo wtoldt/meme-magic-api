@@ -5,20 +5,17 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Player {
-
-	@NotBlank
-	@Size(min=1, max=50, message="Player name has to be between 1 and 50 characters long")
-	private String name;
+	private final String name;
 
 	//TODO: dont let players set this (@null?)
 	private int score;
 
-	public String getName() {
-		return name;
+	public Player(String name) {
+		this.name = name;
 	}
 
-	public void setName(final String name) {
-		this.name = name;
+	public String getName() {
+		return name;
 	}
 
 	public int getScore() {
