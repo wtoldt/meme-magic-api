@@ -6,18 +6,18 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class Player {
 
-	// TODO: I would love for the players to have an icon
-
 	@NotBlank
 	@Size(min=1, max=50, message="Player name has to be between 1 and 50 characters long")
 	private String name;
+
+	//TODO: dont let players set this (@null?)
 	private int score;
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -25,7 +25,7 @@ public class Player {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(final int score) {
 		this.score = score;
 	}
 

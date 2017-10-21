@@ -20,4 +20,8 @@ public class GameDao {
 		return id;
 	}
 
+	public Game getGame(int id) {
+		return games.get(id);
+	}
+
 }

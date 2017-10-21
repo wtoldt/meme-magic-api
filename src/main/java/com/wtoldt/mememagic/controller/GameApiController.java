@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.service.GameService;
 
@@ -15,10 +16,10 @@ import com.wtoldt.mememagic.service.GameService;
 @RequestMapping("api/v1/games")
 public class GameApiController {
 
-	private GameService gameService;
+	private final GameService gameService;
 
 	@Autowired
-	public GameApiController(GameService gameService) {
+	public GameApiController(final GameService gameService) {
 		this.gameService = gameService;
 	}
 
@@ -33,10 +34,17 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value="/{id}/players", method=RequestMethod.POST)
-	public String joinGame(@PathVariable final int id, @Valid Player player) {
-		String response = "success";
+	public String joinGame(@PathVariable final int id, @Valid final Player player) {
+
+		// TODO: put the player in the game
+		final String response = "success";
 
 		return response;
+	}
+
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public Game getGame(@PathVariable final int id) {
+		return gameService.getGame(id);
 	}
 
 }
