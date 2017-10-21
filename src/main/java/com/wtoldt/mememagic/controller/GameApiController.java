@@ -23,11 +23,6 @@ public class GameApiController {
 		this.gameService = gameService;
 	}
 
-	@RequestMapping("hello")
-	public String helloWorld() {
-		return "world";
-	}
-
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public int createGame() {
 		return gameService.createGame();
