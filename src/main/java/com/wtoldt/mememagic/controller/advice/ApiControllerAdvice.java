@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice()
 public class ApiControllerAdvice {
 
-	@ExceptionHandler({BindException.class})
+	@ExceptionHandler(BindException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleBindException(final HttpServletRequest request, final BindException e) {
+	public Map<String, Object> handleBindException(final BindException e) {
 		final Map<String, Object> response = new HashMap<>();
 
 		response.put("success", "false");

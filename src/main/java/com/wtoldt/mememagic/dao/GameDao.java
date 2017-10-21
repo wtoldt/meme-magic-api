@@ -9,7 +9,6 @@ import com.wtoldt.mememagic.domain.Game;
 
 @Component
 public class GameDao {
-
 	private Map<Integer, Game> games = new HashMap<>();
 
 	public int createGame() {

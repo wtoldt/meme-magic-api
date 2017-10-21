@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-
-	List<Player> players = new ArrayList<>();
+	private List<Player> players = new ArrayList<>();
 
 	public List<Player> getPlayers() {
 		return players;
