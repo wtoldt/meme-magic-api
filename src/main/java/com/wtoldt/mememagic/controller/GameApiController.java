@@ -2,15 +2,19 @@ package com.wtoldt.mememagic.controller;
 
 import javax.validation.Valid;
 
-import com.wtoldt.mememagic.exception.NoSuchGameException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wtoldt.mememagic.domain.Game;
-import com.wtoldt.mememagic.domain.Player;
+import com.wtoldt.mememagic.domain.JoinGameRequest;
+import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.service.GameService;
 
+@Validated
 @RestController
 @RequestMapping("api/v1/games")
 public class GameApiController {
@@ -28,9 +32,12 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value="/{gameId}/players", method=RequestMethod.POST)
-	public String joinGame(@PathVariable final int gameId,
-						   @RequestParam final String playerName) throws NoSuchGameException {
-		gameService.joinGame(gameId, playerName);
+	public String joinGame(
+			@PathVariable final int gameId,
+			@Valid final JoinGameRequest joinGameRequest)
+					throws NoSuchGameException {
+
+		gameService.joinGame(gameId, joinGameRequest.getPlayer());
 		// TODO: put the player in the game
 		final String response = "success";
 
