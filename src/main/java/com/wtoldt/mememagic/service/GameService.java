@@ -1,12 +1,12 @@
 package com.wtoldt.mememagic.service;
 
-import com.wtoldt.mememagic.domain.Player;
-import com.wtoldt.mememagic.exception.NoSuchGameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.Player;
+import com.wtoldt.mememagic.exception.NoSuchGameException;
 
 @Service
 public class GameService {
@@ -25,13 +25,13 @@ public class GameService {
 		return gameDao.getGame(id);
 	}
 
-    public void joinGame(final int gameId, final String playerName) throws NoSuchGameException {
-		Game game = gameDao.getGame(gameId);
+	public void joinGame(final int gameId, final String playerName) throws NoSuchGameException {
+		final Game game = gameDao.getGame(gameId);
 		if (game == null) {
-			throw new NoSuchGameException("Player '" + playerName + "' cannot join game #" + gameId + " as the game does not exist");
+			throw new NoSuchGameException(gameId);
 		}
 
-		Player player = new Player(playerName);
+		final Player player = new Player(playerName);
 		game.getPlayers().add(player);
-    }
+	}
 }
