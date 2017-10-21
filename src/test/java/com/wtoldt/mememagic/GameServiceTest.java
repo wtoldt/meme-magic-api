@@ -2,11 +2,11 @@ package com.wtoldt.mememagic;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.service.GameService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created by Emily Li on 21/10/2017.
@@ -27,5 +27,12 @@ public class GameServiceTest {
 
         Assert.assertNotNull(game);
         Assert.assertEquals(game.getId(), gameId);
+    }
+
+    @Test(expected = NoSuchGameException.class)
+    public void testJoinGameForUnknownIdFails() throws NoSuchGameException {
+        final int unknownId = 1;
+        final String player = "player";
+        gameService.joinGame(unknownId, player);
     }
 }
