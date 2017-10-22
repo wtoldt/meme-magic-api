@@ -1,17 +1,25 @@
 package com.wtoldt.mememagic.domain;
 
 public class Player {
-	private final String name;
 
-	//TODO: dont let players set this (@null?)
+	private final String name;
+	private boolean ready = false;
 	private int score;
 
-	public Player(String name) {
+	public Player(final String name) {
 		this.name = name;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public boolean isReady() {
+		return ready;
+	}
+
+	public void setReady(final boolean ready) {
+		this.ready = ready;
 	}
 
 	public int getScore() {
@@ -24,7 +32,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [name=" + name + ", score=" + score + "]";
+		return "Player [name=" + name + ", ready=" + ready + ", score=" + score + "]";
 	}
 
 }

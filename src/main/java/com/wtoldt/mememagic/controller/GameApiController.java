@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.GameState;
 import com.wtoldt.mememagic.domain.JoinGameRequest;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.service.GameService;
@@ -38,15 +39,15 @@ public class GameApiController {
 					throws NoSuchGameException {
 
 		gameService.joinGame(gameId, joinGameRequest.getPlayer());
-		// TODO: put the player in the game
 		final String response = "success";
 
 		return response;
 	}
 
 	@RequestMapping(value="/{gameId}", method=RequestMethod.GET)
-	public Game getGame(@PathVariable final int gameId) {
-		return gameService.getGame(gameId);
+	public GameState getGameState(@PathVariable final int gameId) {
+		final Game game = gameService.getGame(gameId);
+		return GameService.getGameState(game);
 	}
 
 }
