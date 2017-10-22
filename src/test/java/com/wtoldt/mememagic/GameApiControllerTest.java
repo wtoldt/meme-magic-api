@@ -30,14 +30,14 @@ public class GameApiControllerTest {
         testJoinGameNameLimit(50);
     }
 
-    private void testJoinGameNameLimit(int nameLength) throws Exception {
+    private void testJoinGameNameLimit(final int nameLength) throws Exception {
         StringBuilder playerName = new StringBuilder();
         for (int i = 0; i < nameLength ; i++) {
             playerName.append('.');
         }
 
         final int gameId = gameApiController.createGame();
-        JoinGameRequest joinGameRequest = new JoinGameRequest();
+        final JoinGameRequest joinGameRequest = new JoinGameRequest();
         joinGameRequest.setPlayer(playerName.toString());
 
         gameApiController.joinGame(gameId, joinGameRequest);
