@@ -1,9 +1,5 @@
 package com.wtoldt.mememagic.domain;
 
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 public class Player {
 	private final String name;
 
