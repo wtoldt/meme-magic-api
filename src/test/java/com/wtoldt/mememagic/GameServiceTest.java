@@ -2,7 +2,9 @@ package com.wtoldt.mememagic;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
+import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.service.GameService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +23,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void testCreateGame() {
+    public void testCreateGame() throws NoSuchGameException {
         final int gameId = gameService.createGame();
         Game game = gameService.getGame(gameId);
 
@@ -30,7 +32,7 @@ public class GameServiceTest {
     }
 
     @Test(expected = NoSuchGameException.class)
-    public void testJoinGameForUnknownIdFails() throws NoSuchGameException {
+    public void testJoinGameForUnknownIdFails() throws NoSuchGameException, GameNotJoinableException, PlayerAlreadyExistsException {
         final int unknownId = 1;
         final String player = "player";
         gameService.joinGame(unknownId, player);
