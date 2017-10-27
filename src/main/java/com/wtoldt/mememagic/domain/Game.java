@@ -8,6 +8,7 @@ public class Game {
 	private final int id;
 	private List<Player> players = new ArrayList<>();
 	private boolean ready = false;
+	private int phase = 1;
 
 	public Game(final int id) {
 		this.id = id;
@@ -33,8 +34,16 @@ public class Game {
 		return id;
 	}
 
+	public int getPhase() {
+		return phase;
+	}
+
+	public void setPhase(int phase) {
+		this.phase = phase;
+	}
+
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", players=" + players + ", ready=" + ready + "]";
+		return "Game [id=" + id + ", players=" + players + ", ready=" + ready + ", phase=" + phase + "]";
 	}
 }

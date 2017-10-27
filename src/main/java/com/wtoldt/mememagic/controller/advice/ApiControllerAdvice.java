@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
+import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 
 @RestControllerAdvice()
 public class ApiControllerAdvice {
@@ -40,7 +42,7 @@ public class ApiControllerAdvice {
 		return responseMap;
 	}
 
-	@ExceptionHandler(NoSuchGameException.class)
+	@ExceptionHandler({ NoSuchGameException.class, PlayerAlreadyExistsException.class, GameNotJoinableException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, Object> handleNoSuchGameException(final NoSuchGameException e) {
 		final Map<String, Object> responseMap = new HashMap<>();
