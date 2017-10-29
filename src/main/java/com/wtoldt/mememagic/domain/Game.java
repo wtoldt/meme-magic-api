@@ -8,7 +8,7 @@ public class Game {
 	private final int id;
 	private List<Player> players = new ArrayList<>();
 	private boolean ready = false;
-	private final GamePhase phase = GamePhase.values()[0];
+	private GamePhase phase = GamePhase.values()[0];
 
 	public Game(final int id) {
 		this.id = id;
@@ -32,6 +32,10 @@ public class Game {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setPhase(final GamePhase gamePhase) {
+		this.phase = gamePhase;
 	}
 
 	public GamePhase getPhase() {
