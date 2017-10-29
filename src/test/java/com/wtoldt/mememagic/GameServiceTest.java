@@ -4,6 +4,7 @@ import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
+import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.service.GameService;
 import org.junit.Assert;
@@ -18,14 +19,14 @@ public class GameServiceTest {
 
     @Before
     public void setup() {
-        GameDao gameDao = new GameDao();
+        final GameDao gameDao = new GameDao();
         gameService = new GameService(gameDao);
     }
 
     @Test
     public void testCreateGame() throws NoSuchGameException {
         final int gameId = gameService.createGame();
-        Game game = gameService.getGame(gameId);
+        final Game game = gameService.getGame(gameId);
 
         Assert.assertNotNull(game);
         Assert.assertEquals(game.getId(), gameId);
@@ -36,5 +37,11 @@ public class GameServiceTest {
         final int unknownId = 1;
         final String player = "player";
         gameService.joinGame(unknownId, player);
+    }
+
+    @Test(expected = NoSuchPlayerException.class)
+    public void testNoSuchPlayerExceptionWhenAttemptingToReady() throws NoSuchGameException, NoSuchPlayerException {
+        final int gameId = gameService.createGame();
+        gameService.setPlayerReady(gameId, "player", true);
     }
 }
