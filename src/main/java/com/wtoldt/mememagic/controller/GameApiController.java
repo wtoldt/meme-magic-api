@@ -1,6 +1,20 @@
 package com.wtoldt.mememagic.controller;
 
-import com.wtoldt.mememagic.domain.*;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wtoldt.mememagic.domain.ApiResponse;
+import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.GameState;
+import com.wtoldt.mememagic.domain.JoinGameRequest;
+import com.wtoldt.mememagic.domain.PlayerReadyRequest;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
@@ -8,11 +22,6 @@ import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.factory.ApiResponseFactory;
 import com.wtoldt.mememagic.factory.GameStateFactory;
 import com.wtoldt.mememagic.service.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Validated
 @RestController
@@ -51,18 +60,17 @@ public class GameApiController {
 
 	@RequestMapping(value = "/{gameId}/players/{playerName}", method = RequestMethod.PUT)
 	public ApiResponse playerReady(@PathVariable final int gameId,
-								   @PathVariable final String playerName,
-								   @RequestBody final PlayerReadyRequest playerReadyRequest)
+			@PathVariable final String playerName,
+			@RequestBody final PlayerReadyRequest playerReadyRequest)
 					throws NoSuchGameException, NoSuchPlayerException {
 
-		gameService.setPlayerReady(gameId, playerName, playerReadyRequest.getReady());
+		final boolean playerReady = playerReadyRequest.getReady();
+		gameService.setPlayerReady(gameId, playerName, playerReady);
 
 		final ApiResponse response = ApiResponseFactory.successful();
 
-        final String msg = playerReadyRequest.getReady()
-                ? String.format("Player %s has readied successfully!", playerName)
-                : String.format("Player %s has unreadied successfully!", playerName);
-        response.setValue("message", msg);
+		final String readyVerb = playerReady ? "readied" : "unreadied";
+		response.setValue("message", String.format("Player %s has %s successfully!", playerName, readyVerb));
 
 		return response;
 	}
