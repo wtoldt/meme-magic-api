@@ -38,7 +38,7 @@ public class Game {
 		return phase;
 	}
 
-	public void setPhase(int phase) {
+	public void setPhase(final int phase) {
 		this.phase = phase;
 	}
 
