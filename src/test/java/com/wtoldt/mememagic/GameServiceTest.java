@@ -2,14 +2,19 @@ package com.wtoldt.mememagic;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.service.GameService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Emily Li on 21/10/2017.
@@ -28,8 +33,8 @@ public class GameServiceTest {
         final int gameId = gameService.createGame();
         final Game game = gameService.getGame(gameId);
 
-        Assert.assertNotNull(game);
-        Assert.assertEquals(game.getId(), gameId);
+        assertNotNull(game);
+        assertEquals(game.getId(), gameId);
     }
 
     @Test(expected = NoSuchGameException.class)
@@ -43,5 +48,34 @@ public class GameServiceTest {
     public void testNoSuchPlayerExceptionWhenAttemptingToReady() throws NoSuchGameException, NoSuchPlayerException {
         final int gameId = gameService.createGame();
         gameService.setPlayerReady(gameId, "player", true);
+    }
+  
+    @Test
+    public void testPlayerNotReadyByDefault() throws Exception {
+        final int gameId = gameService.createGame();
+        final String playerName = "asdf";
+        gameService.joinGame(gameId, playerName);
+        final Game game = gameService.getGame(gameId);
+
+        final List<Player> players = game.getPlayers();
+        assertEquals(1, players.size());
+
+        final Player player = players.get(0);
+        assertEquals(false, player.isReady());
+    }
+
+    @Test
+    public void testReadyPlayer() throws Exception {
+        final int gameId = gameService.createGame();
+        final String playerName = "asdf";
+        gameService.joinGame(gameId, playerName);
+        final Game game = gameService.getGame(gameId);
+        gameService.setPlayerReady(gameId, playerName, true);
+
+        final List<Player> players = game.getPlayers();
+        assertEquals(1, players.size());
+
+        final Player player = players.get(0);
+        assertEquals(true, player.isReady());
     }
 }
