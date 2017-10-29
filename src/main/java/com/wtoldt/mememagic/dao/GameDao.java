@@ -2,7 +2,6 @@ package com.wtoldt.mememagic.dao;
 
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
-
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -20,9 +19,9 @@ public class GameDao {
 		return id;
 	}
 
-	public Game getGame(int id) throws NoSuchGameException {
-		Game game = games.get(id);
-		if (game == null) {
+    public Game getGame(final int id) throws NoSuchGameException {
+        final Game game = games.get(id);
+        if (game == null) {
 			throw new NoSuchGameException(id);
 		}
 		return game;
