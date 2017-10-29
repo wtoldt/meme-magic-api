@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.wtoldt.mememagic.exception.GameNotJoinableException;
-import com.wtoldt.mememagic.exception.NoSuchGameException;
-import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
+import com.wtoldt.mememagic.domain.ApiResponse;
+import com.wtoldt.mememagic.exception.GameException;
+import com.wtoldt.mememagic.factory.ApiResponseFactory;
 
-@RestControllerAdvice()
+@RestControllerAdvice
 public class ApiControllerAdvice {
 
 	@ExceptionHandler(BindException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleBindException(final BindException e) {
+	public ApiResponse handleBindException(final BindException e) {
 		final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
 		final List<Map<String, Object>> errorsList = new ArrayList<>();
 		for (final FieldError field : fieldErrors) {
@@ -33,24 +33,20 @@ public class ApiControllerAdvice {
 			errorsList.add(errorMap);
 		}
 
-		final Map<String, Object> responseMap = new HashMap<>();
-		responseMap.put("error", "true");
-		responseMap.put("success", "false");
-		responseMap.put("message", "Request was rejected because there were errors.");
-		responseMap.put("requestErrors", errorsList);
+		final ApiResponse response = ApiResponseFactory.failure();
+		response.put("message", "Request was rejected because there were errors.");
+		response.put("requestErrors", errorsList);
 
-		return responseMap;
+		return response;
 	}
 
-	@ExceptionHandler({ NoSuchGameException.class, PlayerAlreadyExistsException.class, GameNotJoinableException.class })
+	@ExceptionHandler(GameException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleNoSuchGameException(final NoSuchGameException e) {
-		final Map<String, Object> responseMap = new HashMap<>();
-		responseMap.put("error", "true");
-		responseMap.put("success", "false");
-		responseMap.put("message", e.getMessage());
+	public ApiResponse handleGameException(final GameException e) {
 
-		return responseMap;
+		final ApiResponse response = ApiResponseFactory.failure();
+		response.put("message", e.getMessage());
+		return response;
 	}
 
 }
