@@ -1,23 +1,20 @@
 package com.wtoldt.mememagic.service;
 
-import java.util.NoSuchElementException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.GamePhase;
 import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class GameService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 	private final GameDao gameDao;
 
 	@Autowired
@@ -68,7 +65,7 @@ public class GameService {
 	}
 
 	private void validateGameisJoinable(final Game game) throws GameNotJoinableException {
-		if (game.getPhase() != 1) {
+		if (!game.getPhase().equals(GamePhase.JOIN)) {
 			throw new GameNotJoinableException(game.getId());
 		}
 	}
