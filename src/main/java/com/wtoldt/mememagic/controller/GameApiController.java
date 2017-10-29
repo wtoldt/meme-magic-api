@@ -58,7 +58,12 @@ public class GameApiController {
 		gameService.setPlayerReady(gameId, playerName, playerReadyRequest.getReady());
 
 		final ApiResponse response = ApiResponseFactory.successful();
-		response.setValue("message", String.format("Player %s has readied up successfully!", playerName));
+
+        final String msg = playerReadyRequest.getReady()
+                ? String.format("Player %s has readied successfully!", playerName)
+                : String.format("Player %s has unreadied successfully!", playerName);
+        response.setValue("message", msg);
+
 		return response;
 	}
 
