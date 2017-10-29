@@ -1,21 +1,19 @@
 package com.wtoldt.mememagic.domain;
 
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 public class PlayerReadyRequest {
-	
-	@NotBlank
-	@Size(min=1, max=50, message=" Player name must be between 1 and 50 characters")
-	private String player;
 
-	public String getPlayer() {
-		return player;
+	private boolean ready;
+
+	public boolean getReady() {
+		return ready;
 	}
 
-	public void setPlayer(final String player) {
-		this.player = player;
+	public void setReady(final boolean ready) {
+		this.ready = ready;
 	}
 
+	@Override
+	public String toString() {
+		return "PlayerReadyRequest [ready=" + ready + "]";
+	}
 }

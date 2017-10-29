@@ -8,14 +8,14 @@ public class JoinGameRequest {
 
 	@NotBlank
 	@Size(min=1, max=50, message=" Player name must be between 1 and 50 characters")
-	private String player;
+	private String playerName;
 
-	public String getPlayer() {
-		return player;
+	public String getPlayerName() {
+		return playerName;
 	}
 
-	public void setPlayer(final String player) {
-		this.player = player;
+	public void setPlayerName(final String playerName) {
+		this.playerName = playerName;
 	}
 
 }

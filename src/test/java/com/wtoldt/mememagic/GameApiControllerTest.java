@@ -32,7 +32,7 @@ public class GameApiControllerTest {
 		final String playerName = "player";
 		final int gameId = createAndJoinGame(playerName);
 
-		final GameState gameState = gameApiController.getGameState(gameId);
+		final GameState gameState = (GameState) gameApiController.getGameState(gameId).get("gameState");
 		final List<String> players = gameState.getPlayers();
 
 		assertEquals(1, players.size());
@@ -58,9 +58,9 @@ public class GameApiControllerTest {
 	}
 
 	private int createAndJoinGame(final String playerName) throws Exception {
-		final int gameId = gameApiController.createGame();
+		final int gameId = (int) gameApiController.createGame().get("gameId");
 		final JoinGameRequest joinGameRequest = new JoinGameRequest();
-		joinGameRequest.setPlayer(playerName);
+		joinGameRequest.setPlayerName(playerName);
 		gameApiController.joinGame(gameId, joinGameRequest);
 		return gameId;
 	}
