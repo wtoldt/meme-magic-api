@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wtoldt.mememagic.domain.ApiResponse;
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.GameState;
 import com.wtoldt.mememagic.domain.JoinGameRequest;
@@ -31,8 +32,10 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value="", method=RequestMethod.POST)
-	public int createGame() {
-		return gameService.createGame();
+	public ApiResponse createGame() {
+		int gameId = gameService.createGame();
+		ApiResponse response = ApiResponse.successfulSingleton("id",  gameId);
+		return response;
 	}
 
 	@RequestMapping(value="/{gameId}/players", method=RequestMethod.POST)
