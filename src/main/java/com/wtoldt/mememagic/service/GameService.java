@@ -1,12 +1,5 @@
 package com.wtoldt.mememagic.service;
 
-import java.util.NoSuchElementException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.Player;
@@ -14,10 +7,11 @@ import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 	private final GameDao gameDao;
 
 	@Autowired
@@ -48,15 +42,11 @@ public class GameService {
 			throws NoSuchGameException, NoSuchPlayerException {
 
 		final Game game = gameDao.getGame(gameId);
-		Player player = null;
-		try {
-			player = game.getPlayers().stream()
-					.filter(p -> playerName.equals(p.getName()))
-					.findFirst().get();
-		} catch (final NoSuchElementException e) {
-			throw new NoSuchPlayerException(game.getId(), playerName);
-		}
-		player.setReady(ready);
+        final Player player = game.getPlayers().stream()
+                .filter(p -> playerName.equals(p.getName()))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchPlayerException(gameId, playerName));
+        player.setReady(ready);
 	}
 
 	private void validatePlayerJoinGame(final Game game, final String playerName) throws PlayerAlreadyExistsException {

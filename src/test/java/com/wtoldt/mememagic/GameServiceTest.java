@@ -5,6 +5,7 @@ import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
+import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.service.GameService;
 import org.junit.Before;
@@ -43,6 +44,12 @@ public class GameServiceTest {
         gameService.joinGame(unknownId, player);
     }
 
+    @Test(expected = NoSuchPlayerException.class)
+    public void testNoSuchPlayerExceptionWhenAttemptingToReady() throws NoSuchGameException, NoSuchPlayerException {
+        final int gameId = gameService.createGame();
+        gameService.setPlayerReady(gameId, "player", true);
+    }
+  
     @Test
     public void testPlayerNotReadyByDefault() throws Exception {
         final int gameId = gameService.createGame();
