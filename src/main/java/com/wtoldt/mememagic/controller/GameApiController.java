@@ -75,7 +75,7 @@ public class GameApiController {
 		final GameState gameState = GameStateFactory.fromGame(game);
 
 		final ApiResponse response = ApiResponseFactory.successful();
-		response.setValue("gameState", gameState);
+		response.setValue("game", gameState);
 		return response;
 	}
 
