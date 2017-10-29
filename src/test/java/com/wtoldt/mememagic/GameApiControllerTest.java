@@ -17,6 +17,7 @@ import com.wtoldt.mememagic.config.MemeMagicApiConfig;
 import com.wtoldt.mememagic.controller.GameApiController;
 import com.wtoldt.mememagic.domain.GameState;
 import com.wtoldt.mememagic.domain.JoinGameRequest;
+import com.wtoldt.mememagic.domain.PlayerState;
 
 /**
  * Created by Emily Li on 21/10/2017.
@@ -33,7 +34,7 @@ public class GameApiControllerTest {
 		final int gameId = createAndJoinGame(playerName);
 
 		final GameState gameState = (GameState) gameApiController.getGameState(gameId).get("gameState");
-		final List<String> players = gameState.getPlayers();
+		final List<PlayerState> players = gameState.getPlayers();
 
 		assertEquals(1, players.size());
 		assertEquals(playerName, players.get(0));
