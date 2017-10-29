@@ -7,7 +7,7 @@ public class GameState {
 
 	private final List<PlayerState> players = new ArrayList<>();
 	private boolean ready = false;
-	private int phase = 1;
+	private GamePhase phase = GamePhase.values()[0];
 
 	public boolean isReady() {
 		return ready;
@@ -21,11 +21,11 @@ public class GameState {
 		return players;
 	}
 
-	public int getPhase() {
+	public GamePhase getPhase() {
 		return phase;
 	}
 
-	public void setPhase(final int phase) {
+	public void setPhase(final GamePhase phase) {
 		this.phase = phase;
 	}
 

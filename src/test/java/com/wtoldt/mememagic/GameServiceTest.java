@@ -2,6 +2,7 @@ package com.wtoldt.mememagic;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.GamePhase;
 import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
@@ -77,5 +78,12 @@ public class GameServiceTest {
 
         final Player player = players.get(0);
         assertEquals(true, player.isReady());
+    }
+
+    @Test
+    public void testJoinGamePhase() throws Exception {
+        final int gameId = gameService.createGame();
+        final Game game = gameService.getGame(gameId);
+        assertEquals(GamePhase.JOIN, game.getPhase());
     }
 }

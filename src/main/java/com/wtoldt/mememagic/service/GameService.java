@@ -2,6 +2,7 @@ package com.wtoldt.mememagic.service;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
+import com.wtoldt.mememagic.domain.GamePhase;
 import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
@@ -58,7 +59,7 @@ public class GameService {
 	}
 
 	private void validateGameisJoinable(final Game game) throws GameNotJoinableException {
-		if (game.getPhase() != 1) {
+		if (!game.getPhase().equals(GamePhase.JOIN)) {
 			throw new GameNotJoinableException(game.getId());
 		}
 	}
