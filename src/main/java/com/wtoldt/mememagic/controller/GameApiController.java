@@ -59,7 +59,7 @@ public class GameApiController {
 
 	@RequestMapping(value = "/{gameId}/players/{playerName}", method = RequestMethod.PUT)
 	public ApiResponse playerReady(@PathVariable final int gameId, @PathVariable final String playerName,
-			final PlayerReadyRequest playerReadyRequest)
+			@Valid final PlayerReadyRequest playerReadyRequest)
 					throws NoSuchGameException, NoSuchPlayerException {
 
 		gameService.setPlayerReady(gameId, playerName, playerReadyRequest.getReady());

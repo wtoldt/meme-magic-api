@@ -1,14 +1,17 @@
 package com.wtoldt.mememagic.domain;
 
+import javax.validation.constraints.NotNull;
+
 public class PlayerReadyRequest {
 
-	private boolean ready;
+	@NotNull(message="Ready must not be null!")
+	private Boolean ready;
 
-	public boolean getReady() {
+	public Boolean getReady() {
 		return ready;
 	}
 
-	public void setReady(final boolean ready) {
+	public void setReady(final Boolean ready) {
 		this.ready = ready;
 	}
 
