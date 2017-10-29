@@ -11,8 +11,6 @@ import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-
 @Service
 public class GameService {
 	private final GameDao gameDao;
@@ -45,15 +43,11 @@ public class GameService {
 			throws NoSuchGameException, NoSuchPlayerException {
 
 		final Game game = gameDao.getGame(gameId);
-		Player player = null;
-		try {
-			player = game.getPlayers().stream()
-					.filter(p -> playerName.equals(p.getName()))
-					.findFirst().get();
-		} catch (final NoSuchElementException e) {
-			throw new NoSuchPlayerException(game.getId(), playerName);
-		}
-		player.setReady(ready);
+        final Player player = game.getPlayers().stream()
+                .filter(p -> playerName.equals(p.getName()))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchPlayerException(gameId, playerName));
+        player.setReady(ready);
 	}
 
 	private void validatePlayerJoinGame(final Game game, final String playerName) throws PlayerAlreadyExistsException {
