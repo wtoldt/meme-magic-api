@@ -1,20 +1,21 @@
 package com.wtoldt.mememagic.domain;
 
+import java.net.URI;
+
 public class Image {
 
-	private String url;
+	private URI uri;
 
-	public String getUrl() {
-		return url;
+	public URI getUri() {
+		return uri;
 	}
 
-	public void setUrl(final String url) {
-		this.url = url;
+	public void setUri(final URI uri) {
+		this.uri = uri;
 	}
 
 	@Override
 	public String toString() {
-		return "Image [url=" + url + "]";
+		return "Image [uri=" + uri + "]";
 	}
-
 }
