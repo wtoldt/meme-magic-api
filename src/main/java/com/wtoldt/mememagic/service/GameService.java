@@ -1,8 +1,5 @@
 package com.wtoldt.mememagic.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.Player;
@@ -11,6 +8,8 @@ import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.validator.GameLogicValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
@@ -50,6 +49,4 @@ public class GameService {
 				.orElseThrow(() -> new NoSuchPlayerException(gameId, playerName));
 		player.setReady(ready);
 	}
-
-
 }
