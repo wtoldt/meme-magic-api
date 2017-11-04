@@ -1,4 +1,4 @@
-package com.wtoldt.mememagic;
+package com.wtoldt.mememagic.service;
 
 import com.wtoldt.mememagic.dao.GameDao;
 import com.wtoldt.mememagic.domain.Game;
@@ -8,7 +8,6 @@ import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
 import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
-import com.wtoldt.mememagic.service.GameService;
 import org.junit.Before;
 import org.junit.Test;
 

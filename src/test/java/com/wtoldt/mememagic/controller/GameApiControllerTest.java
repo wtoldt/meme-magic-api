@@ -1,7 +1,6 @@
-package com.wtoldt.mememagic;
+package com.wtoldt.mememagic.controller;
 
 import com.wtoldt.mememagic.config.MemeMagicApiConfig;
-import com.wtoldt.mememagic.controller.GameApiController;
 import com.wtoldt.mememagic.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
