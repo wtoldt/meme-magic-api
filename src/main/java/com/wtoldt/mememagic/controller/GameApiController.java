@@ -17,17 +17,17 @@ import javax.validation.Valid;
 @Validated
 @RestController
 @RequestMapping("api/v1/games")
-public class GameApiController {
+class GameApiController {
 
 	private final GameService gameService;
 
 	@Autowired
-	public GameApiController(final GameService gameService) {
-		this.gameService = gameService;
+    GameApiController(final GameService gameService) {
+        this.gameService = gameService;
 	}
 
 	@RequestMapping(value="", method=RequestMethod.POST)
-    public ApiResponse createGame(final CreateGameRequest createGameRequest) {
+    ApiResponse createGame(final CreateGameRequest createGameRequest) {
         final int gameId = gameService.createGame(createGameRequest);
 
 		final ApiResponse response = ApiResponseFactory.successful();
@@ -36,8 +36,8 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value="/{gameId}/players", method=RequestMethod.POST)
-	public ApiResponse joinGame(
-			@PathVariable final int gameId,
+    ApiResponse joinGame(
+            @PathVariable final int gameId,
 			@RequestBody @Valid final JoinGameRequest joinGameRequest)
 					throws NoSuchGameException, GameNotJoinableException, PlayerAlreadyExistsException {
 
@@ -50,9 +50,9 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value = "/{gameId}/players/{playerName}", method = RequestMethod.PUT)
-	public ApiResponse playerReady(@PathVariable final int gameId,
-			@PathVariable final String playerName,
-			@RequestBody final PlayerReadyRequest playerReadyRequest)
+    ApiResponse playerReady(@PathVariable final int gameId,
+                            @PathVariable final String playerName,
+                            @RequestBody final PlayerReadyRequest playerReadyRequest)
 					throws NoSuchGameException, NoSuchPlayerException {
 
 		final boolean playerReady = playerReadyRequest.getReady();
@@ -67,8 +67,8 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value="/{gameId}", method=RequestMethod.GET)
-	public ApiResponse getGameState(@PathVariable final int gameId) throws NoSuchGameException {
-		final Game game = gameService.getGame(gameId);
+    ApiResponse getGameState(@PathVariable final int gameId) throws NoSuchGameException {
+        final Game game = gameService.getGame(gameId);
 		final GameState gameState = GameStateFactory.fromGame(game);
 
 		final ApiResponse response = ApiResponseFactory.successful();
