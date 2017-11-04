@@ -21,7 +21,7 @@ public class GameLogicValidatorTest {
 	public void testValidatePlayerJoinGameForPlayerAlreadyExistsException() throws PlayerAlreadyExistsException {
 		final Game game = new Game(0);
 		final Player player = new Player("foo");
-		game.getPlayers().add(player);
+		game.addPlayer(player);
 		GameLogicValidator.validatePlayerJoinGame(game, "foo");
 	}
 

@@ -1,13 +1,13 @@
 package com.wtoldt.mememagic.domain;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Game {
-
 	private final int id;
-	private List<Player> players = new ArrayList<>();
-	private boolean ready = false;
+    private final LinkedHashMap<String, Player> players = new LinkedHashMap<>();
+    private boolean ready = false;
 	private GamePhase phase = GamePhase.values()[0];
 
 	public Game(final int id) {
@@ -15,12 +15,12 @@ public class Game {
 	}
 
 	public List<Player> getPlayers() {
-		return players;
-	}
+        return new ArrayList<>(players.values());
+    }
 
-	public void setPlayers(final List<Player> players) {
-		this.players = players;
-	}
+    public void addPlayer(final Player player) {
+        players.put(player.getName(), player);
+    }
 
 	public boolean isReady() {
 		return ready;

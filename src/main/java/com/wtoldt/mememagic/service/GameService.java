@@ -36,7 +36,7 @@ public class GameService {
 		GameLogicValidator.validatePlayerJoinGame(game, playerName);
 
 		final Player player = new Player(playerName);
-		game.getPlayers().add(player);
+		game.addPlayer(player);
 	}
 
 	public void setPlayerReady(final int gameId, final String playerName, final boolean ready)
