@@ -1,14 +1,13 @@
 package com.wtoldt.mememagic.domain;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class Game {
 	private final int id;
     private final LinkedHashMap<String, Player> players = new LinkedHashMap<>();
     private boolean ready = false;
 	private GamePhase phase = GamePhase.values()[0];
+    private Deque<Image> images; // This is so images can be popped off the deque and discarded after use
 
 	public Game(final int id) {
 		this.id = id;
@@ -41,6 +40,10 @@ public class Game {
 	public GamePhase getPhase() {
 		return phase;
 	}
+
+    public void setImages(final Collection<Image> images) {
+        this.images = new ArrayDeque<>(images);
+    }
 
 	@Override
 	public String toString() {
