@@ -34,7 +34,7 @@ public class GameLogicValidatorTest {
 	@Test(expected = GameNotJoinableException.class)
 	public void testValidGameisJoinableForGameNotJoinableException() throws GameNotJoinableException {
 		final Game game = new Game(0);
-		game.setPhase(GamePhase.CAPTION_IMAGES);
+		game.setPhase(GamePhase.SUBMIT_CAPTION_IMAGES);
 		GameLogicValidator.validateGameisJoinable(game);
 	}
 
