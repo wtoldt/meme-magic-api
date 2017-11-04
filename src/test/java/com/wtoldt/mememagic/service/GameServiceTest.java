@@ -1,6 +1,7 @@
 package com.wtoldt.mememagic.service;
 
 import com.wtoldt.mememagic.dao.GameDao;
+import com.wtoldt.mememagic.domain.CreateGameRequest;
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.GamePhase;
 import com.wtoldt.mememagic.domain.Player;
@@ -30,7 +31,7 @@ public class GameServiceTest {
 
     @Test
     public void testCreateGame() throws NoSuchGameException {
-        final int gameId = gameService.createGame();
+        final int gameId = gameService.createGame(new CreateGameRequest());
         final Game game = gameService.getGame(gameId);
 
         assertNotNull(game);
@@ -46,13 +47,13 @@ public class GameServiceTest {
 
     @Test(expected = NoSuchPlayerException.class)
     public void testNoSuchPlayerExceptionWhenAttemptingToReady() throws NoSuchGameException, NoSuchPlayerException {
-        final int gameId = gameService.createGame();
+        final int gameId = gameService.createGame(new CreateGameRequest());
         gameService.setPlayerReady(gameId, "player", true);
     }
   
     @Test
     public void testPlayerNotReadyByDefault() throws Exception {
-        final int gameId = gameService.createGame();
+        final int gameId = gameService.createGame(new CreateGameRequest());
         final String playerName = "asdf";
         gameService.joinGame(gameId, playerName);
         final Game game = gameService.getGame(gameId);
@@ -66,7 +67,7 @@ public class GameServiceTest {
 
     @Test
     public void testReadyPlayer() throws Exception {
-        final int gameId = gameService.createGame();
+        final int gameId = gameService.createGame(new CreateGameRequest());
         final String playerName = "asdf";
         gameService.joinGame(gameId, playerName);
         final Game game = gameService.getGame(gameId);
@@ -81,7 +82,7 @@ public class GameServiceTest {
 
     @Test
     public void testJoinGamePhase() throws Exception {
-        final int gameId = gameService.createGame();
+        final int gameId = gameService.createGame(new CreateGameRequest());
         final Game game = gameService.getGame(gameId);
         assertEquals(GamePhase.JOIN, game.getPhase());
     }

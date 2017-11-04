@@ -49,7 +49,7 @@ public class GameApiControllerTest {
 
 	@Test
 	public void testGameState() throws Exception {
-		final ApiResponse createGameResponse = gameApiController.createGame();
+		final ApiResponse createGameResponse = gameApiController.createGame(new CreateGameRequest());
 		final int gameId = (int) createGameResponse.get("gameId");
 		final JoinGameRequest joinGameRequest = new JoinGameRequest();
 		joinGameRequest.setPlayerName("asdf");
@@ -71,7 +71,7 @@ public class GameApiControllerTest {
 	}
 
 	private int createAndJoinGame(final String playerName) throws Exception {
-		final int gameId = (int) gameApiController.createGame().get("gameId");
+		final int gameId = (int) gameApiController.createGame(new CreateGameRequest()).get("gameId");
 		final JoinGameRequest joinGameRequest = new JoinGameRequest();
 		joinGameRequest.setPlayerName(playerName);
 		gameApiController.joinGame(gameId, joinGameRequest);

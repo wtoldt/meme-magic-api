@@ -1,6 +1,7 @@
 package com.wtoldt.mememagic.service;
 
 import com.wtoldt.mememagic.dao.GameDao;
+import com.wtoldt.mememagic.domain.CreateGameRequest;
 import com.wtoldt.mememagic.domain.Game;
 import com.wtoldt.mememagic.domain.Player;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
@@ -20,7 +21,7 @@ public class GameService {
 		this.gameDao = gameDao;
 	}
 
-	public int createGame() {
+	public int createGame(final CreateGameRequest createGameRequest) {
 		return gameDao.createGame();
 	}
 

@@ -1,20 +1,6 @@
 package com.wtoldt.mememagic.controller;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.wtoldt.mememagic.domain.ApiResponse;
-import com.wtoldt.mememagic.domain.Game;
-import com.wtoldt.mememagic.domain.GameState;
-import com.wtoldt.mememagic.domain.JoinGameRequest;
-import com.wtoldt.mememagic.domain.PlayerReadyRequest;
+import com.wtoldt.mememagic.domain.*;
 import com.wtoldt.mememagic.exception.GameNotJoinableException;
 import com.wtoldt.mememagic.exception.NoSuchGameException;
 import com.wtoldt.mememagic.exception.NoSuchPlayerException;
@@ -22,6 +8,11 @@ import com.wtoldt.mememagic.exception.PlayerAlreadyExistsException;
 import com.wtoldt.mememagic.factory.ApiResponseFactory;
 import com.wtoldt.mememagic.factory.GameStateFactory;
 import com.wtoldt.mememagic.service.GameService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Validated
 @RestController
@@ -36,8 +27,8 @@ public class GameApiController {
 	}
 
 	@RequestMapping(value="", method=RequestMethod.POST)
-	public ApiResponse createGame() {
-		final int gameId = gameService.createGame();
+    public ApiResponse createGame(final CreateGameRequest createGameRequest) {
+        final int gameId = gameService.createGame(createGameRequest);
 
 		final ApiResponse response = ApiResponseFactory.successful();
 		response.setValue("gameId", gameId);
