@@ -22,12 +22,12 @@ class GameApiController {
 	private final GameService gameService;
 
 	@Autowired
-    GameApiController(final GameService gameService) {
+    public GameApiController(final GameService gameService) {
         this.gameService = gameService;
 	}
 
 	@RequestMapping(value="", method=RequestMethod.POST)
-    ApiResponse createGame(final CreateGameRequest createGameRequest) {
+    public ApiResponse createGame(final CreateGameRequest createGameRequest) {
         final int gameId = gameService.createGame(createGameRequest);
 
 		final ApiResponse response = ApiResponseFactory.successful();
@@ -36,7 +36,7 @@ class GameApiController {
 	}
 
 	@RequestMapping(value="/{gameId}/players", method=RequestMethod.POST)
-    ApiResponse joinGame(
+    public ApiResponse joinGame(
             @PathVariable final int gameId,
 			@RequestBody @Valid final JoinGameRequest joinGameRequest)
 					throws NoSuchGameException, GameNotJoinableException, PlayerAlreadyExistsException {
@@ -50,9 +50,9 @@ class GameApiController {
 	}
 
 	@RequestMapping(value = "/{gameId}/players/{playerName}", method = RequestMethod.PUT)
-    ApiResponse playerReady(@PathVariable final int gameId,
-                            @PathVariable final String playerName,
-                            @RequestBody final PlayerReadyRequest playerReadyRequest)
+    public ApiResponse playerReady(@PathVariable final int gameId,
+                                   @PathVariable final String playerName,
+                                   @RequestBody final PlayerReadyRequest playerReadyRequest)
 					throws NoSuchGameException, NoSuchPlayerException {
 
 		final boolean playerReady = playerReadyRequest.getReady();
@@ -67,7 +67,7 @@ class GameApiController {
 	}
 
 	@RequestMapping(value="/{gameId}", method=RequestMethod.GET)
-    ApiResponse getGameState(@PathVariable final int gameId) throws NoSuchGameException {
+    public ApiResponse getGameState(@PathVariable final int gameId) throws NoSuchGameException {
         final Game game = gameService.getGame(gameId);
 		final GameState gameState = GameStateFactory.fromGame(game);
 
